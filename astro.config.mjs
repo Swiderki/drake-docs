@@ -5,21 +5,34 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'My Docs',
+			title: 'DrakeEngine Docs',
 			social: {
-				github: 'https://github.com/withastro/starlight',
+				github: 'https://github.com/Swiderki/DrakeEngine',
 			},
 			sidebar: [
 				{
-					label: 'Guides',
+					label: 'Basics',
 					items: [
 						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', link: '/guides/example/' },
+						{ label: 'Quick Start', link: '/guides/quick-start/' },
+						{ label: 'Engine', link: '/guides/engine/' },
+						{ label: 'Scene', link: '/guides/scene/' },
+						{ label: 'GameObjects', items: [
+							{ label: 'GameObject', link: '/guides/game-object/' },
+							{ label: 'Basic GameObjects', link: '/guides/basic-game-objects/' },
+							{ label: 'PhysicalGameObject', link: '/guides/physical-game-object/' },
+							
+						] },
+						{ label: 'Rotation', link: '/guides/rotation/' },
 					],
 				},
 				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					label: 'GUI',
+					items: [
+						// Each item here is one entry in the navigation menu.
+						{ label: 'GUIText', link: '/gui/gui-text/' },
+						{ label: 'Button', link: '/gui/button/' },
+					],
 				},
 			],
 		}),
