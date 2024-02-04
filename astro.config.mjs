@@ -32,6 +32,10 @@ export default defineConfig({
 						// Each item here is one entry in the navigation menu.
 						{ label: 'GUIText', link: '/gui/gui-text/' },
 						{ label: 'Button', link: '/gui/button/' },
+						{ label: 'Input', link: '/gui/input/' },
+						{ label: 'GUIElement', link: '/gui/gui-element/' },
+						{ label: 'GUI', link: '/gui/gui/' },
+						{ label: 'Clickable', link: '/gui/clickable/' },
 					],
 				},
 			],
