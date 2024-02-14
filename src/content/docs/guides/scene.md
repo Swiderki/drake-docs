@@ -5,13 +5,8 @@ description: Sfhsfhsfh
 ### Constructor
 
 ```tsx
-new Scene(width: number, height: number);
+new Scene();
 ```
-
-| Name | Type | Description |
-| --- | --- | --- |
-| width | number | Scene width. Expected canvas width. |
-| height | number | Scene height. Expected canvas height. |
 
 ### Members
 
@@ -55,6 +50,28 @@ private _GUIs: Map<number, GUI> = new Map();
 // and this._GUIs has the exact same object 
 // Default set to null (no GUI to display)
 private _currentGUI: GUI | null = null;
+```
+
+```tsx
+// Map object used to effectively store all scene overlaps 
+private _overlaps: Map<number, Overlap> = new Map();
+```
+
+```tsx
+// getter for overlaps
+get overlaps() 
+```
+
+```tsx
+// Returns overlap object of given id
+// Throws an ERROR when object does not exists
+getOverlap(overlapID: number): Overlap 
+```
+
+```tsx
+// Adds overlap to the scene 
+// Returns id of the overlap
+addOverlap(overlap: Overlap): number 
 ```
 
 ```tsx
@@ -125,18 +142,24 @@ public addGUI(gui: GUI): number;
 
 ```tsx
 // Sets a camera for Scene and initializes the projection
-// WARNING: Scene Does not store any other cameras!
-public setCamera(camera: Camera): void;
+// WARNING: Scene Does not store only 1 camera
+// also takes render width and height as parameters
+// Its recommended to pass canvas dimensions
+public setMainCamera(camera: Camera, renderWidth: number, renderHeight: number): void;
 ```
 
 ```tsx
-// It starts projection of the scene's objects
+// It creates projection matrix for scene
+// Projection can differ from scene to scene
+// It gets itf params from mainCamera so it have to be added before call og the function
+// It gets automatically called after setMainCamera 
 public initProjection(void): void;
 ```
 
 ```tsx
 // It is used to add objects to the scene
-public addSceneMesh(mesh: GameObject): number;
+// returns gameObject's id
+public addGameObject(gameObject: GameObject): number;
 ```
 
 ### Usage

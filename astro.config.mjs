@@ -38,6 +38,15 @@ export default defineConfig({
 						{ label: 'Clickable', link: '/gui/clickable/' },
 					],
 				},
+				{
+					label: 'Math',
+					items: [
+						// Each item here is one entry in the navigation menu.
+						{ label: 'Vectors', link: '/math/vectors' },
+						{ label: 'Matrixes', link: '/math/matrix' },
+						{ label: 'Quaternions', link: '/math/quaternions' },
+					],
+				},
 			],
 		}),
 	],

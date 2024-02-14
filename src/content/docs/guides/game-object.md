@@ -23,6 +23,53 @@ new GameObject(meshPath: string, config?: GameObjectInitialConfig)
 | mesh: Line[];
 type Line = [Vec3D, Vec3D]; | a list of lines from which the model is built of |
 
+```tsx
+// moves object relatively
+// it actual moves each vertex of the mesh
+move(x: number, y: number, z: number): void
+```
+
+```tsx
+// sets position of gameObject absolutely
+setPosition(x: number, y: number, z: number): void
+```
+
+```tsx
+// scale game object relatively
+scale(x: number, y: number, z: number)
+```
+
+```tsx
+// apply quaternion's rotation to object 
+applyQuaternion(quaternion: QuaternionUtils.Quaternion): void
+```
+
+```tsx
+// returns boxCollider mesh if object has one
+getBoxColliderMesh(): Line3D[] | null
+```
+
+```tsx
+//loads game objects mesh and calls applyInitialParams() at the end
+async loadMesh(): Promise<void>
+```
+
+```tsx
+// gets called after the mesh load, appals all inital transformations like position and size 
+applyInitialParams(): void
+```
+
+```tsx
+// returns mesh of gameObject
+getMesh(): Line3D[];
+```
+
+```tsx
+// gets automatically called every frame
+// deltaTime is time between previous frame on current one
+Update(deltaTime: number): void;
+```
+
 ### Example usage
 
 ```tsx

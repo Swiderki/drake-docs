@@ -25,8 +25,14 @@ static createFromGameObject(gameObject: GameObject, initialConfig?: PhysicalObje
 applyForce(force: Vec3D) {}
 ```
 
+```tsx
+// handles all the physics
+// gets automatically called every frame(before GameObject.Update func)
+updatePhysics(deltaTime: number): void
+```
+
 <aside>
-💡 U can freely change acceleration, velocity casue they are public properties
+💡 U can freely change acceleration, velocity cause they are public properties
 
 </aside>
 
