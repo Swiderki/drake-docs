@@ -3,88 +3,128 @@ title: GameObject
 description: Introduction to GameObject instance.
 ---
 
-### Constructor
+## Constructor
 
-```tsx
-new GameObject(meshPath: string, config?: GameObjectInitialConfig)
+```typescript
+/**
+ * Instantiates a GameObject with a specified mesh and an optional initial configuration.
+ */
+constructor(meshPath: string, initialConfig: GameObjectInitialConfig = {}) {}
 ```
 
-| Name | Type | Description |
-| --- | --- | --- |
-| meshPath | string | path to .obj file, file should be stored in /public directory |
-| config? | position?: Vec3DTuple; </br> size?: Vec3DTuple; </br> rotation?: Vec3DTuple; </br> allowUsingCachedMesh?:boolean | initial configuration of GameObject |
+## Properties
 
-### Members
-
-| Property | Description |
-| --- | --- |
-| readonly meshPath: string; | store path to .obj file with GameObject's model |
-| readonly allowUsingCachedMesh: boolean; | when enabled, every model is fetched once and then its mesh is cached for future usage |
-| mesh: Line[];
-type Line = [Vec3D, Vec3D]; | a list of lines from which the model is built of |
-
-```tsx
-// moves object relatively
-// it actual moves each vertex of the mesh
-move(x: number, y: number, z: number): void
+### Unique Identifier
+```typescript
+readonly id: number;
 ```
+Automatically generated unique ID for the GameObject.
 
-```tsx
-// sets position of gameObject absolutely
-setPosition(x: number, y: number, z: number): void
+### Mesh Path
+```typescript
+readonly meshPath: string;
 ```
+Path to the model's `.obj` file, intended to be located in the `/public` directory.
 
-```tsx
-// scale game object relatively
-scale(x: number, y: number, z: number)
+### Mesh Caching
+```typescript
+readonly allowUsingCachedMesh: boolean = true;
 ```
+Determines if the mesh should be fetched once and cached for subsequent uses.
 
-```tsx
-// apply quaternion's rotation to object 
-applyQuaternion(quaternion: QuaternionUtils.Quaternion): void
+### Visual Properties
+```typescript
+color: string = "#fff";
+isHollow: boolean = false;
+isShining: boolean = false;
+isVisible: boolean = true;
 ```
+Defines the color, rendering style (hollow or solid), shining effect, and visibility of the GameObject.
 
-```tsx
-// returns boxCollider mesh if object has one
-getBoxColliderMesh(): Line3D[] | null
+### Collision Detection
+```typescript
+boxCollider: Line3D | null = null;
+showBoxcollider: boolean = false;
+autoupdateBoxCollider: boolean = false;
 ```
+Manages the GameObject's bounding box for collision detection and visual debugging.
 
-```tsx
-//loads game objects mesh and calls applyInitialParams() at the end
-async loadMesh(): Promise<void>
+## Methods
+
+### Initialization
+```typescript
+Start(): void {}
 ```
+Intended for custom startup logic. Override in subclasses.
 
-```tsx
-// gets called after the mesh load, appals all inital transformations like position and size 
-applyInitialParams(): void
+### Frame Update
+```typescript
+Update(deltaTime: number): void {}
 ```
+Invoked on every frame to implement custom update logic.
 
-```tsx
-// returns mesh of gameObject
-getMesh(): Line3D[];
+### Mesh Management
+```typescript
+async loadMesh(): Promise<void> {}
 ```
+Loads the GameObject's mesh from the specified `.obj` file and applies initial transformations.
 
-```tsx
-// gets automatically called every frame
-// deltaTime is time between previous frame on current one
-Update(deltaTime: number): void;
+### Transformation Methods
+
+#### Move
+```typescript
+move(x: number, y: number, z: number): void {}
 ```
+Moves the GameObject by a specified amount along each axis.
 
-### Example usage
-
-```tsx
-//...
-this.myObject = new Drake.GameObject(
-    "objects/path_to_my_object.obj",
-    [0, 2, 0], // 2 units up in Y axis
-    [1, 1, 1], // normal scale
-    [Math.PI/2, 0, 0] // 90 deg in X axis
-);
-//...
+#### Set Position
+```typescript
+setPosition(x: number, y: number, z: number): void {}
 ```
+Sets the GameObject's absolute position in the scene.
 
-<aside>
-💡 There are few bultin Game object. You can read more about them here:
+#### Scale
+```typescript
+scale(x: number, y: number, z: number): void {}
+```
+Scales the GameObject by specified factors along each axis.
 
+#### Rotate
+```typescript
+rotate(xAxis: number, yAxis: number, zAxis: number): void {}
+```
+Rotates the GameObject around each axis by given angles (in radians).
 
-</aside>
+#### Apply Quaternion Rotation
+```typescript
+applyQuaternion(quaternion: QuaternionUtils.Quaternion): void {}
+```
+Applies a quaternion rotation to the GameObject.
+
+### Collision Detection
+
+#### Generate Box Collider
+```typescript
+generateBoxCollider(): void {}
+```
+Calculates and updates the GameObject's bounding box based on its current geometry.
+
+#### Get Box Collider Mesh
+```typescript
+getBoxColliderMesh(): Line3D[] | null {}
+```
+Returns the lines defining the GameObject's bounding box, if available.
+
+## Example Usage
+
+```typescript
+// Instantiation with initial configuration
+const myObject = new GameObject("objects/my_model.obj", {
+  position: [0, 2, 0], // Position 2 units up in Y-axis
+  size: [1, 1, 1], // Normal scale
+  rotation: [Math.PI / 2, 0, 0], // Rotated 90 degrees around X-axis
+});
+
+// During the game loop
+myObject.move(1, 0, 0); // Move 1 unit along the X-axis
+```

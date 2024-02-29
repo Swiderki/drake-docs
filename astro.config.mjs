@@ -17,6 +17,8 @@ export default defineConfig({
             { label: "Quick Start", link: "/guides/quick-start/" },
             { label: "Engine", link: "/guides/engine/" },
             { label: "Scene", link: "/guides/scene/" },
+            { label: "Camera", link: "/guides/camera/" },
+
             {
               label: "GameObjects",
               items: [
@@ -42,6 +44,7 @@ export default defineConfig({
             { label: "GUIText", link: "/gui/gui-text/" },
             { label: "Button", link: "/gui/button/" },
             { label: "Input", link: "/gui/input/" },
+            { label: "Icon", link: "/gui/icon/" },
             { label: "GUIElement", link: "/gui/gui-element/" },
             { label: "GUI", link: "/gui/gui/" },
             { label: "Clickable", link: "/gui/clickable/" },
@@ -54,6 +57,8 @@ export default defineConfig({
             { label: "Vectors", link: "/math/vectors" },
             { label: "Matrixes", link: "/math/matrix" },
             { label: "Quaternions", link: "/math/quaternions" },
+            { label: "Raycast", link: "/math/raycast" },
+            { label: "Frustrum", link: "/math/frustrum" },
           ],
         },
       ],
