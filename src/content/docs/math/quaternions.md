@@ -3,68 +3,103 @@ title: Quaternions
 description: All u need to know about quaternions
 ---
 
+## Types
+
 ### Quaternion
-
-Represents a quaternion with four components: `x`, `y`, `z`, and `w`.
-
-- **`x`**: number - The x component of the quaternion.
-- **`y`**: number - The y component of the quaternion.
-- **`z`**: number - The z component of the quaternion.
-- **`w`**: number - The w component (scalar part) of the quaternion.
+```typescript
+/**
+ * Represents a quaternion, used for 3D rotations without suffering gimbal lock.
+ */
+export type Quaternion = {
+  x: number;
+  y: number;
+  z: number;
+  w: number;
+};
+```
 
 ## Functions
 
+### Initialize Quaternion
 ```typescript
-init(quaternion: Quaternion, x = 0, y = 0, z = 0, w = 1): void
+/**
+ * Initializes a quaternion with specified values.
+ */
+export function init(quaternion: Quaternion, x = 0, y = 0, z = 0, w = 1): void {}
 ```
 
-Initializes or resets a quaternion with the specified components, rounding each to 4 decimal places.
-
-- **Parameters:**
-  - `quaternion`: Quaternion - The quaternion to initialize.
-  - `x`: number (default = 0) - The x component.
-  - `y`: number (default = 0) - The y component.
-  - `z`: number (default = 0) - The z component.
-  - `w`: number (default = 1) - The w component.
-
+### Set Quaternion from Axis Angle
 ```typescript
-setFromAxisAngle(quaternion: Quaternion, axis: {x: number, y: number, z: number}, angle: number): void
+/**
+ * Sets a quaternion based on a rotation around a given axis by a specific angle.
+ */
+export function setFromAxisAngle(quaternion: Quaternion, axis: { x: number; y: number; z: number }, angle: number): void {}
 ```
 
-Sets a quaternion based on the rotation around a given axis by a specified angle in radians, normalizing the axis and rounding components to 4 decimal places.
-
-- **Parameters:**
-  - `quaternion`: Quaternion - The quaternion to set.
-  - `axis`: object - The axis of rotation.
-  - `angle`: number - The angle of rotation in radians.
-
+### Normalize Quaternion
 ```typescript
-normalize(quaternion: Quaternion): void
+/**
+ * Normalizes a quaternion to unit length, ensuring it represents a valid rotation.
+ */
+export function normalize(quaternion: Quaternion): void {}
 ```
 
-Normalizes the quaternion to unit length, making it represent a valid rotation.
-
-- **Parameters:**
-  - `quaternion`: Quaternion - The quaternion to normalize.
-
+### Multiply Quaternions
 ```typescript
-multiply(q1: Quaternion, q2: Quaternion, result: Quaternion): void
+/**
+ * Multiplies two quaternions, storing the result in a third quaternion.
+ */
+export function multiply(q1: Quaternion, q2: Quaternion, result: Quaternion): void {}
 ```
 
-Multiplies two quaternions and stores the result in a third quaternion.
-
-- **Parameters:**
-  - `q1`: Quaternion - The first quaternion.
-  - `q2`: Quaternion - The second quaternion.
-  - `result`: Quaternion - The quaternion to store the result.
-
+### Rotate Vector by Quaternion
 ```typescript
-rotateVector(quaternion: Quaternion, vector: {x: number, y: number, z: number}, result: {x: number, y: number, z: number}): void
+/**
+ * Rotates a vector by a quaternion, altering the vector's direction.
+ */
+export function rotateVector(quaternion: Quaternion, vector: { x: number; y: number; z: number }, result: { x: number; y: number; z: number }): void {}
 ```
 
-Rotates a vector by a quaternion and stores the result in another vector.
+### Convert Quaternion to Euler Angles
+```typescript
+/**
+ * Converts a quaternion to Euler angles (roll, pitch, yaw).
+ */
+export function toEulerAngles(quaternion: Quaternion): { x: number; y: number; z: number } {}
+```
 
-- **Parameters:**
-  - `quaternion`: Quaternion - The quaternion to use for rotation.
-  - `vector`: object - The vector to rotate.
-  - `result`: object - The vector to store the result.
+### Angle Between Quaternions
+```typescript
+/**
+ * Calculates the angle between two quaternions.
+ */
+export function angleBetween(q1: Quaternion, q2: Quaternion): number {}
+```
+
+### Spherical Linear Interpolation (SLERP)
+```typescript
+/**
+ * Performs spherical linear interpolation between two quaternions.
+ */
+export function slerp(qa: Quaternion, qb: Quaternion, t: number, result: Quaternion): void {}
+```
+
+## Example Usage
+
+### Rotation Quaternion Initialization
+```typescript
+const quaternion = { x: 0, y: 0, z: 0, w: 1 };
+QuaternionUtils.init(quaternion, 0, 0, 0, 1);
+```
+
+### Applying Rotation to a Quaternion
+```typescript
+QuaternionUtils.setFromAxisAngle(quaternion, { x: 0, y: 1, z: 0 }, Math.PI / 2);
+```
+
+### Rotating a Vector
+```typescript
+const vector = { x: 1, y: 0, z: 0 };
+const resultVector = { x: 0, y: 0, z: 0 };
+QuaternionUtils.rotateVector(quaternion, vector, resultVector);
+```
